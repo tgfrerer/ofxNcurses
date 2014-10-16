@@ -35,6 +35,10 @@ library. This is an initial commit. API might change. PRs welcome.
 
 Tested against OS X, linux (debian wheezy), raspberry pi.
 
+# Reference Render
+
+![image](http://poniesandlight.co.uk/static/ascii_world.png)
+
 # Version
 
 0.1
@@ -72,3 +76,6 @@ XCode can't run an ncurses based console app in it's debug window. You will have
 ## Additional Credits 
 
 Ascii art for example project created using jp2a, http://csl.name/jp2a/
+
+
+
