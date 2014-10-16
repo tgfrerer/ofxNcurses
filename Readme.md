@@ -45,6 +45,7 @@ Tested against OS X, linux (debian wheezy), raspberry pi.
 * Thin wrapper around (growing) form text fields for text input.
 * Asynchronous text input routed through ofApp::keyPressed()
 * Thin c++ wrapper around most common ncurses element, with intelligent memory management
+* Word wrapping helper for multi-line paragraphs.
 * Automatically cleans up after yourself
 * Keeps your global namespace clean
 
