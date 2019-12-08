@@ -27,33 +27,23 @@
 //  THE SOFTWARE.
 
 #include "ofConstants.h"
-#include "ofAppBaseWindow.h"
+#include "ofAppNoWindow.h"
 #include "ofBaseTypes.h"
 
 class ofBaseApp;
 
-class ofAppCurses : public ofAppBaseWindow {
+class ofAppCurses : public ofAppNoWindow {
 
 	void * inputWin;
 public:
 	ofAppCurses();
-	virtual ~ofAppCurses();
-
-	void runAppViaInfiniteLoop(ofBaseApp * appPtr);
-
-	ofPoint		getWindowPosition();
-	ofPoint		getWindowSize();
-	ofPoint		getScreenSize();
-
-	int			getWidth();
-	int			getHeight();
+    ~ofAppCurses();
+    
+    void setup(const ofWindowSettings & settings) override;
+    void update() override;
 
 private:
-	void exit();
-
-	int width, height;
-
-    ofBaseApp *		ofAppPtr;
+	void exitApp();
 };
 
 
