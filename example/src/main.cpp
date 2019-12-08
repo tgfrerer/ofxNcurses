@@ -3,10 +3,8 @@
 #include "ofAppCurses.h"
 
 int main() {
-	
-	ofAppBaseWindow * window = new ofAppCurses;
-	ofSetWindow(window);
-	
-	ofBaseApp * app = new ofApp();
-	ofRunApp( app );
+    ofAppCurses window;
+    ofSetupOpenGL(&window, 1024, 768, OF_WINDOW);
+    
+    ofRunApp(new ofApp());
 }
