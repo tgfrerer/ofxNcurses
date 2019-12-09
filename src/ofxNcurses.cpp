@@ -258,7 +258,7 @@ void nc::FormField::setup() {
 
 	// associate form to window
 	set_form_win( thisForm, static_cast<WINDOW *>( winP->getWin() ) );
-	set_form_sub( thisForm, derwin( static_cast< WINDOW * >(winP->getWin(), winP->getHeight(), winP->getWidth(), 0, 0 ) );
+	set_form_sub( thisForm, derwin( static_cast<WINDOW *>( winP->getWin() ), winP->getHeight(), winP->getWidth(), 0, 0 ) );
 	/* Initialize the field  */
 	post_form( thisForm );
 	winP->refresh();
