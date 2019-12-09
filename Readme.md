@@ -1,7 +1,7 @@
 <pre>
      _____    ___     
     /    /   /  /     ofxNcurses
-   /  __/ * /  /__    (c) ponies & light, 2014. 
+   /  __/ * /  /__    (c) ponies & light, 2014, 2019
   /__/     /_____/    poniesandlight.co.uk
 
   ofxNcurses
@@ -41,7 +41,7 @@ Tested against OS X, linux (debian wheezy), raspberry pi.
 
 # Version
 
-0.1
+0.11
 
 ## Features
 
@@ -77,5 +77,8 @@ XCode can't run an ncurses based console app in it's debug window. You will have
 
 Ascii art for example project created using jp2a, http://csl.name/jp2a/
 
+## Thanks 
 
+* [Eduard Frigola](https://github.com/eduardfrigola) for porting to openFrameworks 0.11.0
+* [Bernardo A. Rodrigues](https://github.com/bernardoaraujor) for testing and reporting an issue
 
