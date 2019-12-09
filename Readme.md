@@ -33,11 +33,11 @@ Beautiful window-less console apps on *nix systems with openFrameworks.
 This addon is a thin wrapper around the commonly available ncurses 
 library. This is an initial commit. API might change. PRs welcome.
 
-Tested against OS X, linux (debian wheezy), raspberry pi.
+Tested against OS X, linux (ubuntu eoan, debian wheezy), raspberry pi.
 
 # Reference Render
 
-![image](http://poniesandlight.co.uk/static/ascii_world.png)
+![image](screenshot.png)
 
 # Version
 
