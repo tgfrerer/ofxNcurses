@@ -28,22 +28,20 @@
 
 #include "ofConstants.h"
 #include "ofAppNoWindow.h"
-#include "ofBaseTypes.h"
 
 class ofBaseApp;
 
 class ofAppCurses : public ofAppNoWindow {
 
-	void * inputWin;
-public:
-	ofAppCurses();
-    ~ofAppCurses();
-    
-    void setup(const ofWindowSettings & settings) override;
-    void update() override;
+	void *inputWin = nullptr;
 
-private:
+  public:
+	ofAppCurses();
+	~ofAppCurses() override;
+
+	void setup( const ofWindowSettings &settings ) override;
+	void update() override;
+
+  private:
 	void exitApp();
 };
-
-

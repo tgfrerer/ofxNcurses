@@ -31,127 +31,124 @@
 class ofxNcurses;
 
 namespace nc {
-	
-	class Win {
 
-		Win(){};
+class Win {
 
-	public:
-		
-		struct FLAG_STDSCR {};
-		Win(FLAG_STDSCR); // creates a base window from stdscr, this is only allowed
+	Win() {
+	}
 
-		Win(int x_, int y_, int w_, int h_, bool scrollOK_ = TRUE, bool immedOK_ = false);
-		
-		virtual ~Win();
-		
-		const int& getWidth() const  { return w; };
-		const int& getHeight() const { return h; };
-		
-		void setWidth(int width_);
-		void setHeight(int height_);
-		void resize(int width_, int height_);
-		
-		void setPos(int x_, int y_);
-		
-		// draws box around window
-		void box(int h_char = 0, int v_char = 0);
-		
-		void print(string line_);
-		void printC(char char_);
-		void refresh();
-		void erase();
-		
-		/// move physical cursor
-		void curMove(int x_, int y_);
-		
-		/// move virtual cursor
-		void moveTo(int x_, int y_);
+  public:
+	struct FLAG_STDSCR {};
+	Win( FLAG_STDSCR ); // creates a base window from stdscr, this is only allowed
 
-		string wrapString(string str_);
-		
-		enum Attr {
-			NORMAL,
-			STANDOUT,
-			REVERSE,
-			DIM,
-			COLOR_1,
-			COLOR_2,
-			BOLD,
-		};
-		
-		void attrOn(Attr attr_);
-		void attrOff(Attr attr_);
-		
-		void * getWin() {return winP; };
-		
-	private:
+	Win( int x_, int y_, int w_, int h_, bool scrollOK_ = TRUE, bool immedOK_ = false );
 
-		void * winP;
-		
-		int x;
-		int y;
-		int w;
-		int h;
-		
-		bool scrollOK; /// whether scrolling is enabled.
-		bool immedOK;
+	virtual ~Win();
+
+	const int &getWidth() const {
+		return w;
+	}
+	const int &getHeight() const {
+		return h;
+	}
+
+	void setWidth( int width_ );
+	void setHeight( int height_ );
+	void resize( int width_, int height_ );
+
+	void setPos( int x_, int y_ );
+
+	// draws box around window
+	void box( int h_char = 0, int v_char = 0 );
+
+	void print( string line_ );
+	void printC( char char_ );
+	void refresh();
+	void erase();
+
+	/// move physical cursor
+	void curMove( int x_, int y_ );
+
+	/// move virtual cursor
+	void moveTo( int x_, int y_ );
+
+	string wrapString( string str_ );
+
+	enum Attr {
+		NORMAL,
+		STANDOUT,
+		REVERSE,
+		DIM,
+		COLOR_1,
+		COLOR_2,
+		BOLD,
 	};
-	
 
-	// a form with an (optionally) associated window.
-	
-	class FormField {
-	public:
-		FormField();
-		
-		/// assign form to window
-		void setWindow(shared_ptr<nc::Win> win_);
-		
-		/// call setup after you have associated a window!
-		void setup();
-		void keyPressed(int key);
-		void focusField();
-		
-		virtual ~FormField();
-	private:
-		nc::Win * winP;	// pointer to window
-		void * formP;   // pointer to form
-		void * field[2];  // arrays of 2 fields, null terminated.
-	};
-	
-}
+	void attrOn( Attr attr_ );
+	void attrOff( Attr attr_ );
+
+	void *getWin() {
+		return winP;
+	}
+
+  private:
+	void *winP = {};
+
+	int x = {};
+	int y = {};
+	int w = {};
+	int h = {};
+
+	bool scrollOK; /// whether scrolling is enabled.
+	bool immedOK;
+};
+
+// a form with an (optionally) associated window.
+
+class FormField {
+  public:
+	FormField();
+
+	/// assign form to window
+	void setWindow( shared_ptr<nc::Win> win_ );
+
+	/// call setup after you have associated a window!
+	void setup();
+	void keyPressed( int key );
+	void focusField();
+
+	virtual ~FormField();
+
+  private:
+	nc::Win *winP  = {};   // pointer to window
+	void *   formP = {};   // pointer to form
+	void *   field[ 2 ]{}; // arrays of 2 fields, null terminated.
+};
+
+} // end namespace nc
 
 // ----------------------------------------------------------------------
 
 class ofxNcurses {
-public:
-
-	// this will grab stdscr as the first window.
-	static void setup();
-	
-	/// max width of terminal
-	static int getWidth();
-	/// max height of terminal
-	static int getHeight();
+  public:
+	static void setup();     // this will grab stdscr as the first window.
+	static int  getWidth();  /// max width of terminal
+	static int  getHeight(); /// max height of terminal
 	static void erase();
 	static void refresh();
-	
-	static shared_ptr<nc::Win> addWindow(int x_, int y_, int w_, int h_, bool scrollOK_ = TRUE, bool immedOK_ = false);
-	
+
+	static shared_ptr<nc::Win> addWindow( int x_, int y_, int w_, int h_, bool scrollOK_ = TRUE, bool immedOK_ = false );
+
 	static void hideCursor();
 	static void showCursor();
 
 	static shared_ptr<nc::Win> getCurrentWindow();
 
-	static string wrapString(string str_, int w_);
-	
-private:
+	static string wrapString( string str_, int w_ );
 
+  private:
 	static bool hasColor;
-	
-	
-	static shared_ptr<nc::Win> currentWin;
-	static vector<shared_ptr<nc::Win> > windows;
 
+	static shared_ptr<nc::Win>         currentWin;
+	static vector<shared_ptr<nc::Win>> windows;
 };

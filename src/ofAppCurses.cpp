@@ -28,73 +28,66 @@
 #include "ofMain.h"
 
 #if defined TARGET_OSX || defined TARGET_LINUX
-//#include <stdlib.h>
-//#include <string.h>
-//#include <sys/select.h>
-//#include <termios.h>
-//#include <signal.h>
-#include <ncurses.h>
+#	include <ncurses.h>
 #endif
 
-
-#define inWin ((WINDOW*)inputWin)
+#define inWin static_cast<WINDOW *>( inputWin )
 
 //----------------------------------------------------------
-ofAppCurses::ofAppCurses(){
-	inputWin = NULL;
+ofAppCurses::ofAppCurses() {
+	inputWin = nullptr;
 }
 
 //----------------------------------------------------------
 
-ofAppCurses::~ofAppCurses(){
+ofAppCurses::~ofAppCurses() {
 	// clean up the screen.
-	if (inputWin != NULL) delwin(inWin);
+	if ( inputWin )
+		delwin( inWin );
 }
 
-void ofAppCurses::setup(const ofWindowSettings &settings){
-    ofAppNoWindow::setup(settings);
-    
-    // ncurses manages our window...
-    initscr();                    /* Start curses mode           */
-    
-    noecho();                    /* Do not echo inputs to the main screen. */
-    
-    inputWin = newpad(2, 2); // creating an invisible window, so that key entry does not auto-refresh screen.
-    
-    nodelay(inWin, TRUE);        /* Set asynchronous keyboard input for virtual window */
-    keypad(inWin, TRUE);
-    
-//    ofEventArgs a;
-//    events().setup.notify(a);
-}
+void ofAppCurses::setup( const ofWindowSettings &settings ) {
+	ofAppNoWindow::setup( settings );
 
-//------------------------------------------------------------
-void ofAppCurses::update(){
-    int  key = wgetch(inWin); // note that this will implicitly refresh your screen.
-    bool isKeyWaiting = key != ERR ? true : false;
-    
-    while (isKeyWaiting)
-    {
-        switch (key) {
-            case ERR: /* no input waiting */
-                break;
-            default:
-                events().notifyKeyPressed(key);
-                break;
-        }
-        // try to get the next key.
-        key = wgetch(inWin);
-        isKeyWaiting = key != ERR ? true : false;
-    }
-    events().notifyUpdate();
+	// ncurses manages our window...
+	initscr(); /* Start curses mode           */
+
+	noecho(); /* Do not echo inputs to the main screen. */
+
+	inputWin = newpad( 2, 2 ); // creating an invisible window, so that key entry does not auto-refresh screen.
+
+	nodelay( inWin, TRUE ); /* Set asynchronous keyboard input for virtual window */
+	keypad( inWin, TRUE );
+
+	//    ofEventArgs a;
+	//    events().setup.notify(a);
 }
 
 //------------------------------------------------------------
-void ofAppCurses::exitApp(){
+void ofAppCurses::update() {
+	int  key          = wgetch( inWin ); // note that this will implicitly refresh your screen.
+	bool isKeyWaiting = key != ERR ? true : false;
+
+	while ( isKeyWaiting ) {
+		switch ( key ) {
+		case ERR: /* no input waiting */
+			break;
+		default:
+			events().notifyKeyPressed( key );
+			break;
+		}
+		// try to get the next key.
+		key          = wgetch( inWin );
+		isKeyWaiting = key != ERR ? true : false;
+	}
+	events().notifyUpdate();
+}
+
+//------------------------------------------------------------
+void ofAppCurses::exitApp() {
 	erase();
-	curs_set(1);		/* make cursor visible  */
-	endwin();			/* End curses mode		  */
+	curs_set( 1 ); /* make cursor visible  */
+	endwin();      /* End curses mode		  */
 	reset_shell_mode();
-    ofAppNoWindow::exitApp();
+	ofAppNoWindow::exitApp();
 }
-
